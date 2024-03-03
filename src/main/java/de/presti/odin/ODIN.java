@@ -1,6 +1,11 @@
 package de.presti.odin;
 
 import com.mojang.logging.LogUtils;
+import de.presti.odin.blocks.BlockRegistry;
+import de.presti.odin.blocks.entities.BlockEntityRegistry;
+import de.presti.odin.entities.EntityTypRegistry;
+import de.presti.odin.items.ItemRegistry;
+import de.presti.odin.items.ModCreativeModeTab;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -34,15 +39,6 @@ public class ODIN {
     public static final String MODID = "odin";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "odin" namespace
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "odin" namespace
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-
-    // Creates a new Block with the id "odin:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    // Creates a new BlockItem with the id "odin:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
     public ODIN() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -51,9 +47,14 @@ public class ODIN {
         modEventBus.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
-        BLOCKS.register(modEventBus);
+        BlockRegistry.register(modEventBus);
+
         // Register the Deferred Register to the mod event bus so items get registered
-        ITEMS.register(modEventBus);
+        ItemRegistry.register(modEventBus);
+
+        BlockEntityRegistry.register(modEventBus);
+
+        EntityTypRegistry.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -71,6 +72,13 @@ public class ODIN {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
+    /*private void addCreative(Creative event) {
+        if(event.getTab() == ModCreativeModeTab.ODIN_TAB) {
+            event.accept(ItemRegistry.LAUNCH_STICK);
+            event.accept(ItemRegistry.ODIN_LASER_BLOCK_ITEM);
+        }
+    }*/
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
