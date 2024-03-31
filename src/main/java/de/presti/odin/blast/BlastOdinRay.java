@@ -12,6 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.handlers.ScreenshakeHandler;
+import team.lodestar.lodestone.systems.screenshake.ScreenshakeInstance;
 
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -30,6 +32,12 @@ public class BlastOdinRay extends Blast {
         } else {
             SoundAPI.playSound(BallistixSounds.SOUND_ANTIMATTEREXPLOSION.get(), SoundSource.BLOCKS, 50, 1, position);
         }
+    }
+
+    @Override
+    public void doPostExplode() {
+        super.doPostExplode();
+        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(200).setIntensity(20f));
     }
 
     private ThreadSimpleBlast thread;

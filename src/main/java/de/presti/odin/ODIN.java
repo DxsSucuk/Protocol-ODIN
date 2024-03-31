@@ -5,6 +5,7 @@ import de.presti.odin.blocks.BlockRegistry;
 import de.presti.odin.blocks.entities.BlockEntityRegistry;
 import de.presti.odin.entities.EntityTypRegistry;
 import de.presti.odin.items.ItemRegistry;
+import de.presti.odin.renderer.OdinExplosiveEntityRenderer;
 import de.presti.odin.renderer.OdinImpactEntityRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Blocks;
@@ -86,6 +87,7 @@ public class ODIN {
         public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             LOGGER.info("HELLO FROM ENTITY RENDERERS");
             event.registerEntityRenderer(EntityTypRegistry.ODIN_IMPACT.get(), OdinImpactEntityRenderer::new);
+            event.registerEntityRenderer(EntityTypRegistry.ODIN_EXPLOSIVE.get(), OdinExplosiveEntityRenderer::new);
         }
     }
 }

@@ -1,6 +1,7 @@
 package de.presti.odin.renderer;
 
 import ballistix.client.ClientRegister;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
@@ -17,9 +18,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.handlers.ScreenshakeHandler;
+import team.lodestar.lodestone.systems.screenshake.ScreenshakeInstance;
 
 @OnlyIn(Dist.CLIENT)
 public class OdinImpactEntityRenderer extends EntityRenderer<OdinImpactEntity> {
@@ -30,36 +34,36 @@ public class OdinImpactEntityRenderer extends EntityRenderer<OdinImpactEntity> {
     }
 
     @Override
-    public void render(OdinImpactEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(OdinImpactEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStack, @NotNull MultiBufferSource bufferIn, int packedLightIn) {
         matrixStack.pushPose();
-        double tickCount = entityIn.tickCount;
-        double time = 4.0 / 3.0 * Math.PI * Math.pow(OdinConstants.EXPLOSION_RADIUS, 3);
-        float scale = (float) (0.1 * Math.log(tickCount * tickCount) + tickCount / (time * 2));
-        //BakedModel modelDisk = Minecraft.getInstance().getModelManager().getModel(ClientRegister.MODEL_DARKMATTERDISK);
+        int entityTick = entityIn.tickCount;
+
+        float scale = (float) 0.1 * ((float) OdinConstants.EXPLOSION_RADIUS);
         BakedModel modelSphere = Minecraft.getInstance().getModelManager().getModel(ClientRegister.MODEL_DARKMATTERSPHERE);
+        BakedModel modelBeam = Minecraft.getInstance().getModelManager().getModel(OdinConstants.BEACON_BEAM);
 
-        float animationRadians = (entityIn.tickCount + partialTicks) * 0.05f;
+        boolean shouldShowImpact = entityTick > 10;
 
-        matrixStack.pushPose();
-        matrixStack.scale(scale * 6, scale * 6, scale * 6);
-        matrixStack.mulPose(new Quaternion(new Vector3f(0, 1, 0), -animationRadians, false));
-        matrixStack.mulPose(new Quaternion(new Vector3f(1, 0, 0), -animationRadians, false));
-        matrixStack.mulPose(new Quaternion(new Vector3f(0, 0, 1), -animationRadians, false));
-        RenderingUtils.renderModel(modelSphere, null, RenderType.solid(), matrixStack, bufferIn, packedLightIn, packedLightIn);
-        matrixStack.popPose();
+        if (shouldShowImpact) {
+            matrixStack.pushPose();
+            matrixStack.scale(scale, scale, scale);
+            RenderingUtils.renderModel(modelSphere, null, RenderType.solid(), matrixStack, bufferIn, packedLightIn, packedLightIn);
+            matrixStack.popPose();
 
-        /*matrixStack.pushPose();
-        matrixStack.translate(0, 0.5, 0);
-        matrixStack.scale(scale, scale, scale);
-        matrixStack.mulPose(new Quaternion(new Vector3f(0, 1, 0), -animationRadians, false));
-        matrixStack.scale(1.25f, 1.25f, 1.25f);
-        RenderingUtils.renderModel(modelDisk, null, RenderType.translucent(), matrixStack, bufferIn, packedLightIn, packedLightIn);
-        matrixStack.popPose();*/
-
-        matrixStack.pushPose();
-        matrixStack.scale(scale, scale, scale);
-        RenderingUtils.renderStar(matrixStack, bufferIn, entityIn.tickCount + partialTicks, 60, 1, 1, 1, 0.3f, true);
-        matrixStack.popPose();
+            matrixStack.pushPose();
+            matrixStack.scale(scale, scale, scale);
+            RenderingUtils.renderStar(matrixStack, bufferIn, entityIn.tickCount + partialTicks, 60, 1, 1, 1, 0.3f, true);
+            matrixStack.popPose();
+        } else {
+            matrixStack.pushPose();
+            matrixStack.scale(scale / 2, scale * 50, scale / 2);
+            RenderingUtils.renderModel(modelBeam, null, RenderType.solid(), matrixStack, bufferIn, packedLightIn, packedLightIn);
+            matrixStack.popPose();
+            matrixStack.pushPose();
+            matrixStack.scale(scale / 8, scale / 8, scale / 8);
+            RenderingUtils.renderModel(modelSphere, null, RenderType.solid(), matrixStack, bufferIn, packedLightIn, packedLightIn);
+            matrixStack.popPose();
+        }
 
         matrixStack.popPose();
         super.render(entityIn, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);

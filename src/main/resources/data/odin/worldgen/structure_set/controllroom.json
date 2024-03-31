@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "odin:controllroom",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+
+    "salt": 236273345,
+
+    "spacing": 12,
+
+    "separation": 4
+  }
+}

@@ -7,6 +7,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.handlers.ScreenshakeHandler;
+import team.lodestar.lodestone.systems.screenshake.ScreenshakeInstance;
 
 public class OdinImpactEntity extends Entity {
 
@@ -16,8 +18,15 @@ public class OdinImpactEntity extends Entity {
         super(p_19870_, p_19871_);
     }
 
+    boolean effect = true;
+
     @Override
     public void tick() {
+        if (this.tickCount == 1 && effect) {
+            ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(10).setIntensity(0.3f));
+            effect = false;
+        }
+
         if (this.tickCount > lifetimeInTicks) {
             removeAfterChangingDimensions();
         }

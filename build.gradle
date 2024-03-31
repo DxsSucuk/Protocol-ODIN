@@ -3,8 +3,11 @@ buildscript {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         mavenCentral()
+        maven { url = 'https://files.minecraftforge.net/maven' }
     }
+
     dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -143,6 +146,11 @@ repositories {
     maven {
         url "https://cursemaven.com"
     }
+    maven {
+        name 'Curios maven'
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven { url = 'https://maven.blamejared.com/' }
 }
 
 dependencies {
@@ -155,6 +163,9 @@ dependencies {
 
     implementation fg.deobf("curse.maven:ballistix-443915:${ballistix_version}")
     implementation fg.deobf("curse.maven:electrodynamics-316867:${electrodynamics_version}")
+    implementation fg.deobf("curse.maven:lodestone-616457:${lodestone_version}")
+    implementation fg.deobf("curse.maven:embeddium-908741:5175047")
+    implementation fg.deobf("curse.maven:distant-horizons-508933:4924658")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
