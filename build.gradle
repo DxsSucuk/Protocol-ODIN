@@ -164,8 +164,11 @@ dependencies {
     implementation fg.deobf("curse.maven:ballistix-443915:${ballistix_version}")
     implementation fg.deobf("curse.maven:electrodynamics-316867:${electrodynamics_version}")
     implementation fg.deobf("curse.maven:lodestone-616457:${lodestone_version}")
-    implementation fg.deobf("curse.maven:embeddium-908741:5175047")
-    implementation fg.deobf("curse.maven:distant-horizons-508933:4924658")
+    runtimeOnly fg.deobf("curse.maven:embeddium-908741:5175047")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:4505309")
+    runtimeOnly fg.deobf("curse.maven:konkrete-410295:5028409")
+    runtimeOnly fg.deobf("curse.maven:just-zoom-forge-561885:3869607")
+    //implementation fg.deobf("curse.maven:distant-horizons-508933:4924658")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

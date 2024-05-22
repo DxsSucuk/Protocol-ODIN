@@ -7,7 +7,10 @@ import de.presti.odin.entities.EntityTypRegistry;
 import de.presti.odin.items.ItemRegistry;
 import de.presti.odin.renderer.OdinExplosiveEntityRenderer;
 import de.presti.odin.renderer.OdinImpactEntityRenderer;
+import de.presti.odin.screen.ModMenuTypesRegistry;
+import de.presti.odin.screen.OdinControlPanelScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -46,6 +49,7 @@ public class ODIN {
         BlockEntityRegistry.register(modEventBus);
 
         EntityTypRegistry.register(modEventBus);
+        ModMenuTypesRegistry.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -81,6 +85,8 @@ public class ODIN {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+            MenuScreens.register(ModMenuTypesRegistry.ODIN_CONTROL_PANEL_MENU.get(), OdinControlPanelScreen::new);
         }
 
         @SubscribeEvent
