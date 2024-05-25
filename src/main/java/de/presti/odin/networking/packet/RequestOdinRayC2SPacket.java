@@ -65,7 +65,7 @@ public class RequestOdinRayC2SPacket {
             ServerLevel level = player.getLevel();
 
             if (level.getBlockEntity(this.position) instanceof OdinControlPanelBlockEntity entity) {
-                if (System.currentTimeMillis() - entity.getLastTime() < Duration.ofSeconds(2).toMillis()) {
+                if (System.currentTimeMillis() - entity.getLastTime() < Duration.ofMinutes(15).toMillis()) {
                     player.sendSystemMessage(Component.translatable(MESSAGE_CONTROL_COOLDOWN, Duration.ofMillis(System.currentTimeMillis() - entity.getLastTime()).toSeconds()).withStyle(ChatFormatting.RED));
                     return;
                 }
