@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.presti.odin.ODIN;
 import de.presti.odin.blocks.entities.OdinControlPanelBlockEntity;
-import de.presti.odin.networking.ModMessages;
+import de.presti.odin.networking.MessagesRegistry;
 import de.presti.odin.networking.packet.RequestOdinRayC2SPacket;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -62,7 +62,7 @@ public class OdinControlPanelScreen extends Screen {
 
         button = addRenderableWidget(new Button(this.width / 2 - imageWidth / 4, topPos + imageHeight - 30, imageWidth / 2, 20, Component.literal("Strike"), (button) -> {
             // Request button action
-            ModMessages.sendToServer(new RequestOdinRayC2SPacket(position, Integer.parseInt(xEditBox.getValue()), Integer.parseInt(yEditBox.getValue()), Integer.parseInt(zEditBox.getValue())));
+            MessagesRegistry.sendToServer(new RequestOdinRayC2SPacket(position, Integer.parseInt(xEditBox.getValue()), Integer.parseInt(yEditBox.getValue()), Integer.parseInt(zEditBox.getValue())));
         }));
 
         yEditBox = addRenderableWidget(new EditBox(this.font, this.leftPos + 28, this.topPos + 30, 120, 20, Component.literal("Y")));

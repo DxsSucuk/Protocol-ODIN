@@ -5,15 +5,12 @@ import de.presti.odin.blocks.BlockRegistry;
 import de.presti.odin.blocks.entities.BlockEntityRegistry;
 import de.presti.odin.entities.EntityTypRegistry;
 import de.presti.odin.items.ItemRegistry;
-import de.presti.odin.networking.ModMessages;
+import de.presti.odin.networking.MessagesRegistry;
 import de.presti.odin.renderer.OdinExplosiveEntityRenderer;
 import de.presti.odin.renderer.OdinImpactEntityRenderer;
 import de.presti.odin.screen.ModMenuTypesRegistry;
-import de.presti.odin.screen.OdinControlPanelScreen;
-import de.presti.odin.sound.ModSounds;
+import de.presti.odin.sound.SoundRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +21,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -50,7 +46,7 @@ public class ODIN {
 
         BlockEntityRegistry.register(modEventBus);
 
-        ModSounds.register(modEventBus);
+        SoundRegistry.register(modEventBus);
 
         EntityTypRegistry.register(modEventBus);
         ModMenuTypesRegistry.register(modEventBus);
@@ -62,7 +58,7 @@ public class ODIN {
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
-        ModMessages.register();
+        MessagesRegistry.register();
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

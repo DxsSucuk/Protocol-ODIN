@@ -9,7 +9,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class ModMessages {
+public class MessagesRegistry {
     private static SimpleChannel INSTANCE;
 
     private static int packetId = 0;
