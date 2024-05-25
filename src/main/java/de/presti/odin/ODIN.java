@@ -5,10 +5,12 @@ import de.presti.odin.blocks.BlockRegistry;
 import de.presti.odin.blocks.entities.BlockEntityRegistry;
 import de.presti.odin.entities.EntityTypRegistry;
 import de.presti.odin.items.ItemRegistry;
+import de.presti.odin.networking.ModMessages;
 import de.presti.odin.renderer.OdinExplosiveEntityRenderer;
 import de.presti.odin.renderer.OdinImpactEntityRenderer;
 import de.presti.odin.screen.ModMenuTypesRegistry;
 import de.presti.odin.screen.OdinControlPanelScreen;
+import de.presti.odin.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Blocks;
@@ -48,6 +50,8 @@ public class ODIN {
 
         BlockEntityRegistry.register(modEventBus);
 
+        ModSounds.register(modEventBus);
+
         EntityTypRegistry.register(modEventBus);
         ModMenuTypesRegistry.register(modEventBus);
 
@@ -58,7 +62,7 @@ public class ODIN {
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
-        LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
+        ModMessages.register();
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -67,13 +71,6 @@ public class ODIN {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
-
-    /*private void addCreative(Creative event) {
-        if(event.getTab() == ModCreativeModeTab.ODIN_TAB) {
-            event.accept(ItemRegistry.LAUNCH_STICK);
-            event.accept(ItemRegistry.ODIN_LASER_BLOCK_ITEM);
-        }
-    }*/
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -86,7 +83,7 @@ public class ODIN {
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
-            MenuScreens.register(ModMenuTypesRegistry.ODIN_CONTROL_PANEL_MENU.get(), OdinControlPanelScreen::new);
+            //MenuScreens.register(ModMenuTypesRegistry.ODIN_CONTROL_PANEL_MENU.get(), OdinControlPanelScreen::new);
         }
 
         @SubscribeEvent

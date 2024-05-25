@@ -1,0 +1,8 @@
+{
+  "odin_impact_sound": {
+    "subtitle": "sounds.odin.odin_impact_sound",
+    "sounds": [
+      "odin:odin_impact_sound"
+    ]
+  }
+}

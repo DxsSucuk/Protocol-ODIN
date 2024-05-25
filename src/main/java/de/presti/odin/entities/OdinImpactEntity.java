@@ -1,8 +1,10 @@
 package de.presti.odin.entities;
 
+import de.presti.odin.sound.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -24,6 +26,7 @@ public class OdinImpactEntity extends Entity {
     public void tick() {
         if (this.tickCount == 1 && effect) {
             ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(10).setIntensity(0.3f));
+            level.playSound(null, this, ModSounds.ODIN_IMPACT_SOUND.get(), SoundSource.BLOCKS, 10.0f, 1.0f);
             effect = false;
         }
 

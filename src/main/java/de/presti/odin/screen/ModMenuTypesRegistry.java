@@ -14,8 +14,6 @@ public class ModMenuTypesRegistry {
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ODIN.MODID);
 
-    public static final RegistryObject<MenuType<OdinControlPanelMenu>> ODIN_CONTROL_PANEL_MENU = registerMenuType(OdinControlPanelMenu::new, "odin_control_panel");
-
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }

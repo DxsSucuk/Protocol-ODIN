@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "odin:block/odin_control_panel",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "odin:block/odin_control_panel",
+      "y": 0
+    },
+    "facing=west": {
+      "model": "odin:block/odin_control_panel",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "odin:block/odin_control_panel",
+      "y": 270
+    }
+  }
+}

@@ -1,6 +1,14 @@
 {
   "item.odin.launch_stick": "Launch Stick",
-  "block.odin.odin_laser_block": "Odin Cannon Laser",
 
-  "itemGroup.odin": "Odin"
+  "block.odin.odin_control_panel": "Odin Control Panel",
+
+  "itemGroup.odin": "Odin",
+
+  "gui.odin.control_panel": "Odin Control Panel",
+
+  "message.odin.control_panel.cooldown": "The Odin is on cooldown! Please wait %s seconds.",
+  "message.odin.control_panel.shoot": "The Odin has been shot! May god have mercy.",
+
+  "sounds.odin.odin_impact_sound": "May God have mercy."
 }
