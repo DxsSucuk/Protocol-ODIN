@@ -72,7 +72,7 @@ public class RequestOdinRayC2SPacket {
                 }
 
                 entity.setLastTime(System.currentTimeMillis());
-                EntityTypRegistry.ODIN_EXPLOSIVE.get().spawn(level, null, null, level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE,new BlockPos(this.x, this.y, this.z)), MobSpawnType.EVENT, true, true);
+                EntityTypRegistry.ODIN_EXPLOSIVE.get().spawn(level, null, null, level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(this.x, this.y, this.z)), MobSpawnType.EVENT, true, true);
                 player.sendSystemMessage(Component.translatable(MESSAGE_CONTROL_SHOOT).withStyle(ChatFormatting.GREEN));
                 //OdinControlPanelBlockEntity.tick(level, this.position, level.getBlockState(this.position), entity);
             }
