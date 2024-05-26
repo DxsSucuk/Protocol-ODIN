@@ -62,7 +62,14 @@ public class OdinControlPanelScreen extends Screen {
 
         button = addRenderableWidget(new Button(this.width / 2 - imageWidth / 4, topPos + imageHeight - 30, imageWidth / 2, 20, Component.literal("Strike"), (button) -> {
             // Request button action
-            MessagesRegistry.sendToServer(new RequestOdinRayC2SPacket(position, Integer.parseInt(xEditBox.getValue()), Integer.parseInt(yEditBox.getValue()), Integer.parseInt(zEditBox.getValue())));
+            try {
+                int x = Integer.parseInt(xEditBox.getValue());
+                int y = Integer.parseInt(yEditBox.getValue());
+                int z = Integer.parseInt(zEditBox.getValue());
+                MessagesRegistry.sendToServer(new RequestOdinRayC2SPacket(position, x, y, z));
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid number format!");
+            }
         }));
 
         yEditBox = addRenderableWidget(new EditBox(this.font, this.leftPos + 28, this.topPos + 30, 120, 20, Component.literal("Y")));
